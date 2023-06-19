@@ -28,6 +28,14 @@ class PokeAPIClient(Protocol):
         ...
 
 
+class PokemonAPIService:
+    def getPokemon(self, name: str) -> Pokemon:
+        return Pokemon(id=1, name=name, height=1, order=1, weight=1)
+
+    def getMove(self, name: str) -> PokemonMove:
+        return PokemonMove(id=1, name="takle", accuracy=80, pp=35, power=35)
+
+
 class PokeDex:
     def __init__(self, apiClient: PokeAPIClient) -> None:
         self.__api_client = apiClient
@@ -40,3 +48,8 @@ class PokeDex:
         move_data = self.__api_client.getMove(move)
         print(f"{pokemon.name}'s move {move_data.name}")
         return PokemonMove(id=1, name="takle", accuracy=80, pp=35, power=35)
+
+
+def main():
+    pokemonService = PokemonAPIService()
+    pokedex = PokeDex(pokemonService)
